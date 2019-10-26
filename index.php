@@ -1,4 +1,5 @@
 <?php
+/* TEST */
 session_start();
 $mysqli = createMysqli();
 $result = $mysqli->query("SELECT * FROM users WHERE login = 'admin'")->fetch_assoc();
@@ -89,7 +90,7 @@ function login(string $login, string $password):bool
 {
     $user = getMysqli()->query("SELECT * FROM users WHERE login = '$login'")->fetch_assoc();
     if ($user) {
-        if (validatePassword($password, $user['token'])) {
+        if (validatePassword( $password, $user['token'])) {
             $cookieKey = bin2hex(random_bytes(16));
             $authToken = createPassword($cookieKey);
             $updateQuery = getMysqli()->query("UPDATE users SET auth_key = '$authToken' WHERE users.id = '" . $user['id'] . "';");
